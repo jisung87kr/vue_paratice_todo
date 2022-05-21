@@ -1,12 +1,26 @@
 <template>
-    <div class="grid justify-items-center content-center h-screen text-white bg-gray-900 gap-5">
-        <ItemList v-if="unCompletedList.length" :todolist="unCompletedList" @complete="complete">
-            해야할 일
+    <div class="grid justify-items-center content-center h-screen bg-gray-900 gap-5">
+        <ItemList 
+            v-if="unCompletedList.length" 
+            :todolist="unCompletedList" 
+            @complete="complete"
+        >
+            <template #title>
+                해야할 일
+            </template>
+
+            <template #addItem>
+                <AddItem @addItem="addItem"></AddItem>
+            </template>
         </ItemList>
-        <ItemList v-if="completedList.length" :todolist="completedList" @complete="complete">
+        <ItemList 
+            v-if="completedList.length" 
+            :todolist="completedList" 
+            @complete="complete"
+            class="bg-gray-800 text-white"
+        >
             완료한 일
         </ItemList>
-        <AddItem @addItem="addItem"></AddItem>
     </div>
 </template>
 <script>
@@ -15,7 +29,7 @@ import AddItem from './AddItem.vue'
 export default {
     components: { 
         ItemList,
-        AddItem
+        AddItem,
     },
     data: function(){
         return {

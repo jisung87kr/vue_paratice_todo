@@ -1,7 +1,10 @@
 <template>
-    <div class="border w-1/6">
+    <TodoPannel 
+    class="border border-gray-700 w-1/6"
+    :theme="theme"
+    >
         <div class="py-2 px-3">
-            <h1 class="font-bold mb-2"><slot/></h1>
+            <h1 class="font-bold mb-2"><slot name="title"/></h1>
             <ul class="flex gap-1">
                 <TodoTag v-for=" (tag, index) in tags" 
                     :key="index" 
@@ -11,7 +14,6 @@
                 >
                 </TodoTag>
             </ul>
-
         </div>
         <ul>
             <TodoItem v-for="item in filter" 
@@ -20,16 +22,19 @@
              >
              </TodoItem>
         </ul>
-        </div>
+        <slot name="addItem"></slot>
+    </TodoPannel>
 </template>
 <script>
 import TodoItem from './TodoItem'
 import TodoTag from './TodoTag'
+import TodoPannel from './TodoPannel.vue'
 
 export default {
     components : {
         TodoItem,
-        TodoTag
+        TodoTag,
+        TodoPannel
     },
     props: {
         todolist: Array
@@ -37,6 +42,7 @@ export default {
     data(){
         return{
             currentTag: '전체',
+            theme: 'dark',
         }
     },
     computed: {
